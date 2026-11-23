@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../controller/side_menu_controller.dart';
 import '../enums/display_mode.dart';
@@ -73,41 +73,44 @@ class _SideMenuExpansionItemState extends State<SideMenuExpansionItem> {
     return ValueListenableBuilder(
       valueListenable: scope.displayModeNotifier,
       builder: (context, mode, _) {
-        return ListTileTheme(
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: mode == SideMenuDisplayMode.compact
-                ? theme.itemInnerSpacing
-                : theme.itemInnerSpacing + 5,
-          ),
-          horizontalTitleGap: 0,
-          child: ExpansionTile(
-            leading: SizedBox(
-              width: 40,
-              child: _buildIcon(theme),
+        return Material(
+          type: MaterialType.transparency,
+          child: ListTileTheme(
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: mode == SideMenuDisplayMode.compact
+                  ? theme.itemInnerSpacing
+                  : theme.itemInnerSpacing + 5,
             ),
-            title: mode == SideMenuDisplayMode.open
-                ? Text(
-                    widget.title ?? '',
-                    style: _expanded
-                        ? const TextStyle(fontSize: 17, color: Colors.black)
-                            .merge(theme.selectedTitleStyle)
-                        : const TextStyle(fontSize: 17, color: Colors.black54)
-                            .merge(theme.unselectedTitleStyle),
-                  )
-                : const SizedBox.shrink(),
-            trailing: Icon(
-              _expanded ? Icons.arrow_drop_down_circle : Icons.arrow_drop_down,
-              color: _expanded
-                  ? theme.expansionArrowOpenColor
-                  : theme.expansionArrowColor,
+            horizontalTitleGap: 0,
+            child: ExpansionTile(
+              leading: SizedBox(
+                width: 40,
+                child: _buildIcon(theme),
+              ),
+              title: mode == SideMenuDisplayMode.open
+                  ? Text(
+                      widget.title ?? '',
+                      style: _expanded
+                          ? const TextStyle(fontSize: 17, color: Colors.black)
+                              .merge(theme.selectedTitleStyle)
+                          : const TextStyle(fontSize: 17, color: Colors.black54)
+                              .merge(theme.unselectedTitleStyle),
+                    )
+                  : const SizedBox.shrink(),
+              trailing: Icon(
+                _expanded ? Icons.arrow_drop_down_circle : Icons.arrow_drop_down,
+                color: _expanded
+                    ? theme.expansionArrowOpenColor
+                    : theme.expansionArrowColor,
+              ),
+              initiallyExpanded: widget.initiallyExpanded,
+              maintainState: true,
+              onExpansionChanged: (expanded) {
+                setState(() => _expanded = expanded);
+                widget.onTap?.call(index, scope.controller, expanded);
+              },
+              children: _buildChildren(index),
             ),
-            initiallyExpanded: widget.initiallyExpanded,
-            maintainState: true,
-            onExpansionChanged: (expanded) {
-              setState(() => _expanded = expanded);
-              widget.onTap?.call(index, scope.controller, expanded);
-            },
-            children: _buildChildren(index),
           ),
         );
       },

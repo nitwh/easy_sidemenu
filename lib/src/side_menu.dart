@@ -1,7 +1,7 @@
 import 'dart:async' show Timer;
 import 'dart:ui' show ImageFilter;
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import 'controller/side_menu_controller.dart';
 import 'enums/display_mode.dart';
@@ -129,9 +129,11 @@ class _SideMenuState extends State<SideMenu> {
     final configured = _scope.theme.displayMode;
     if (configured == SideMenuDisplayMode.auto) {
       final screenWidth = MediaQuery.sizeOf(context).width;
-      _applyMode(screenWidth > widget.collapseWidth
-          ? SideMenuDisplayMode.open
-          : SideMenuDisplayMode.compact);
+      _applyMode(
+        screenWidth > widget.collapseWidth
+            ? SideMenuDisplayMode.open
+            : SideMenuDisplayMode.compact,
+      );
     } else {
       _applyMode(configured);
     }
@@ -152,10 +154,10 @@ class _SideMenuState extends State<SideMenu> {
   }
 
   double get _menuWidth => switch (_scope.displayMode) {
-        SideMenuDisplayMode.open => _scope.theme.openWidth,
-        SideMenuDisplayMode.compact => _scope.theme.compactWidth,
-        SideMenuDisplayMode.auto => _scope.theme.openWidth,
-      };
+    SideMenuDisplayMode.open => _scope.theme.openWidth,
+    SideMenuDisplayMode.compact => _scope.theme.compactWidth,
+    SideMenuDisplayMode.auto => _scope.theme.openWidth,
+  };
 
   // ── Toggle ────────────────────────────────────────────────────────────
 
@@ -166,8 +168,10 @@ class _SideMenuState extends State<SideMenu> {
         : SideMenuDisplayMode.open;
     setState(() => _animating = true);
     _animatingTimer?.cancel();
-    _animatingTimer = Timer(widget.displayModeToggleDuration,
-        () => setState(() => _animating = false));
+    _animatingTimer = Timer(
+      widget.displayModeToggleDuration,
+      () => setState(() => _animating = false),
+    );
     _scope.theme = _scope.theme.copyWith(displayMode: next);
     _applyMode(next);
   }
@@ -201,7 +205,8 @@ class _SideMenuState extends State<SideMenu> {
       duration: widget.displayModeToggleDuration,
       width: _menuWidth,
       height: double.infinity,
-      decoration: theme.menuDecoration ??
+      decoration:
+          theme.menuDecoration ??
           BoxDecoration(
             color:
                 theme.backgroundColor ?? Theme.of(context).colorScheme.surface,
@@ -220,10 +225,7 @@ class _SideMenuState extends State<SideMenu> {
             ),
           ),
           if (widget.footer != null && (!isCompact || widget.alwaysShowFooter))
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: widget.footer!,
-            ),
+            Align(alignment: Alignment.bottomCenter, child: widget.footer!),
           if (theme.displayMode != SideMenuDisplayMode.auto &&
               widget.showToggle)
             Align(

@@ -1,3 +1,9 @@
+## [1.1.0]
+
+- Updated for Flutter 3.50.0 support.
+- Migrated from `package:flutter/material.dart` to `package:material_ui/material_ui.dart`.
+- Raised minimum Flutter SDK constraint to `>=3.50.0`.
+
 ## [1.0.0]
 
 This is a full rewrite. See [MIGRATION.md](MIGRATION.md) for a step-by-step upgrade guide.

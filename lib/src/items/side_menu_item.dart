@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../controller/side_menu_controller.dart';
 import '../enums/display_mode.dart';

@@ -6,14 +6,14 @@ publish_to: none
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
-  flutter: ">=3.22.0"
+  flutter: ">=3.50.0"
 
 dependencies:
   flutter:
     sdk: flutter
   easy_sidemenu:
     path: ../
-
+  material_ui: ^1.11.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

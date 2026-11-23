@@ -54,7 +54,7 @@ import 'package:easy_sidemenu/easy_sidemenu.dart';
 
 ```dart
 import 'package:easy_sidemenu/easy_sidemenu.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
